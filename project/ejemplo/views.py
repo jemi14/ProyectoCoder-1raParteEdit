@@ -50,8 +50,35 @@ class AltaFamiliar(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
-            msg_exito = f"se cargo con éxito el familiar {form.cleaned_data.get('nombre')}"
+            msg_exito = f"se cargo con éxito el familiar {form.cleaned_data.get('nombre')}" #Acomoda la info que te llega como un diccionario
             form = self.form_class(initial=self.initial)
             return render(request, self.template_name, {'form':form, 'msg_exito': msg_exito})
         
         return render(request, self.template_name, {"form": form})
+
+#-----------------------Clase 21 parte 1-------------------------
+from django.shortcuts import get_object_or_404 # <----- Nuevo import
+
+class ActualizarFamiliar(View):
+  form_class = FamiliarForm
+  template_name = 'ejemplo/actulizar_familiar.html'
+  initial = {"nombre":"", "direccion":"", "numero_pasaporte":""}
+  
+  # prestar atención ahora el method get recibe un parametro pk == primaryKey == identificador único
+  def get(self, request, pk): 
+      familiar = get_object_or_404(Familiar, pk=pk)
+      form = self.form_class(instance=familiar)
+      return render(request, self.template_name, {'form':form,'familiar': familiar})
+
+  # prestar atención ahora el method post recibe un parametro pk == primaryKey == identificador único
+  def post(self, request, pk): 
+      familiar = get_object_or_404(Familiar, pk=pk)
+      form = self.form_class(request.POST ,instance=familiar)
+      if form.is_valid():
+          form.save()
+          msg_exito = f"se actualizó con éxito el familiar {form.cleaned_data.get('nombre')}"
+          form = self.form_class(initial=self.initial)
+          return render(request, self.template_name, {'form':form, 'familiar': familiar,'msg_exito': msg_exito})
+      
+      return render(request, self.template_name, {"form": form})
+
