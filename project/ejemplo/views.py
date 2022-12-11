@@ -82,3 +82,32 @@ class ActualizarFamiliar(View):
       
       return render(request, self.template_name, {"form": form})
 
+#-----------------------Clase 22 -------------------------
+from django.views.generic import ListView # <----- NUEVO IMPORT
+
+class FamiliarList(ListView):
+  model = Familiar
+
+from django.views.generic import CreateView # <----- NUEVO IMPORT
+
+class FamiliarCrear(CreateView):
+  model = Familiar
+  success_url = "/panel-familia"
+  fields = ["nombre", "direccion", "numero_pasaporte"]
+
+from django.views.generic import DeleteView # <----- NUEVO IMPORT
+
+class FamiliarBorrar(DeleteView):
+  model = Familiar
+  success_url = "/panel-familia"
+
+from django.views.generic import UpdateView # <----- NUEVO IMPORT
+
+class FamiliarActualizar(UpdateView):
+  model = Familiar
+  success_url = "/panel-familia"
+  fields = ["nombre", "direccion", "numero_pasaporte"]
+
+
+
+
