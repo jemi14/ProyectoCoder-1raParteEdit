@@ -109,5 +109,3 @@ class FamiliarActualizar(UpdateView):
   fields = ["nombre", "direccion", "numero_pasaporte"]
 
 
-
-

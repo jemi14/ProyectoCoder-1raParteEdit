@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ejemplo.views import index, monstrar_familiares, BuscarFamiliar, AltaFamiliar, ActualizarFamiliar, FamiliarList, FamiliarCrear, FamiliarBorrar, FamiliarActualizar
+#-----------------------Clase 23-------------------------
+from ejemplo_dos.views import index, PostList, PostCrear, PostBorrar, PostActualizar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,5 +36,11 @@ urlpatterns = [
     path('panel-familia/crear', FamiliarCrear.as_view()), # NUEVA RUTA PARA LISTAR FAMILIAR
     path('panel-familia/borrar', FamiliarBorrar.as_view()), # NUEVA RUTA PARA LISTAR FAMILIAR
     path('panel-familia/actualizar', FamiliarActualizar.as_view()), # NUEVA RUTA PARA LISTAR FAMILIAR
-
+    #-----------------------Clase 23-------------------------
+    path('ejemplo-dos/', index, name="ejemplo-dos-index"),
+    path('ejemplo-dos/listar/', PostList.as_view(), name="ejemplo-dos-listar"),
+    path('ejemplo-dos/crear/', PostCrear.as_view(), name="ejemplo-dos-crear"),
+    #Despues de clase 23
+    path('ejemplo-dos/<int:pk>/borrar/', PostBorrar.as_view(), name="ejemplo-dos-borrar"),
+    path('ejemplo-dos/<int:pk>/actualizar/', PostActualizar.as_view(), name="ejemplo-dos-actualizar"),
 ]
