@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Blog Home - Start Bootstrap Template</title>
+        <a class="navbar-brand" href="{% url 'ejemplo-dos-index' %}">Start Bootstrap</a>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -24,6 +24,14 @@
                         <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'ejemplo-dos-signup' %}">Registrarse</a></li>
+                       
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'ejemplo-dos-logout' %}">Salir</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'ejemplo-dos-login' %}">Ingresar</a></li>
+                        {% endif %}
+                        
                     </ul>
                 </div>
             </div>

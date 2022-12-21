@@ -17,7 +17,13 @@ from django.contrib import admin
 from django.urls import path
 from ejemplo.views import index, monstrar_familiares, BuscarFamiliar, AltaFamiliar, ActualizarFamiliar, FamiliarList, FamiliarCrear, FamiliarBorrar, FamiliarActualizar
 #-----------------------Clase 23-------------------------
-from ejemplo_dos.views import index, PostList, PostCrear, PostBorrar, PostActualizar
+#from ejemplo_dos.views import index, PostList, PostCrear, PostBorrar, PostActualizar
+#-----------------------Clase 24-------------------------
+from ejemplo_dos.views import (index, PostDetalle, PostList, 
+                               PostCrear, PostBorrar, PostActualizar,
+                               UserSignUp, UserLogin, UserLogout )
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,8 +45,16 @@ urlpatterns = [
     #-----------------------Clase 23-------------------------
     path('ejemplo-dos/', index, name="ejemplo-dos-index"),
     path('ejemplo-dos/listar/', PostList.as_view(), name="ejemplo-dos-listar"),
-    path('ejemplo-dos/crear/', PostCrear.as_view(), name="ejemplo-dos-crear"),
-    #Despues de clase 23
-    path('ejemplo-dos/<int:pk>/borrar/', PostBorrar.as_view(), name="ejemplo-dos-borrar"),
-    path('ejemplo-dos/<int:pk>/actualizar/', PostActualizar.as_view(), name="ejemplo-dos-actualizar"),
+    #path('ejemplo-dos/crear/', PostCrear.as_view(), name="ejemplo-dos-crear"),
+    # Despues de clase 23
+    #path('ejemplo-dos/<int:pk>/borrar/', PostBorrar.as_view(), name="ejemplo-dos-borrar"),
+    #path('ejemplo-dos/<int:pk>/actualizar/', PostActualizar.as_view(), name="ejemplo-dos-actualizar"),
+    #-----------------------Clase 24-------------------------
+    path('ejemplo-dos/<int:pk>/detalle/', PostDetalle.as_view(), name="ejemplo-dos-detalle"),
+    path('ejemplo-dos/crear/', staff_member_required(PostCrear.as_view()), name="ejemplo-dos-crear"),
+    path('ejemplo-dos/<int:pk>/borrar/', staff_member_required(PostBorrar.as_view()), name="ejemplo-dos-borrar"),
+    path('ejemplo-dos/<int:pk>/actualizar/', staff_member_required(PostActualizar.as_view()), name="ejemplo-dos-actualizar"),
+    path('ejemplo-dos/signup/', UserSignUp.as_view(), name ="ejemplo-dos-signup"),
+    path('ejemplo-dos/login/', UserLogin.as_view(), name= "ejemplo-dos-login"),
+    path('ejemplo-dos/logout/', UserLogout.as_view(), name="ejemplo-dos-logout"),
 ]
